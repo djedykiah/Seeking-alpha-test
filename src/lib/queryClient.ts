@@ -9,6 +9,6 @@ export const queryClient = new QueryClient(
         refetchOnWindowFocus: false,
       },
     },
-  }
+  },
 );
 
