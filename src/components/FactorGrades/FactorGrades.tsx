@@ -2,7 +2,8 @@ import { useMemo } from 'react';
 
 import { useFactorGradesQuery } from '../../api';
 import { Card } from '../Card';
-import { Column } from '../Card/Table/Table';
+import { Column } from '../Card/Table';
+import { Link } from '../Link';
 
 import { mapResponse } from './mapResponse';
 
@@ -41,11 +42,11 @@ export type FactorGradeItem = {
 };
 
 export const FactorGrades = () => {
-  const {
-    data: data,
-    isError,
-    isLoading,
-  } = useFactorGradesQuery(['now', '3m', '6m']);
+  const { data, isError, isLoading } = useFactorGradesQuery([
+    'now',
+    '3m',
+    '6m',
+  ]);
 
   const items = useMemo(() => {
     if (!data) {
@@ -74,6 +75,11 @@ export const FactorGrades = () => {
       columns={columns}
       isLoading={isLoading}
       isError={isError}
+      footer={
+        <Link to="/">
+          <strong>Quant ratings beat...</strong>
+        </Link>
+      }
     />
   );
 };

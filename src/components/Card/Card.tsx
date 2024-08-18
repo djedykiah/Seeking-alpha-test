@@ -2,9 +2,8 @@ import { ReactNode } from 'react';
 
 import { Loader } from '../Loader';
 
-import { Table } from './Table/Table';
-import { Column } from './Table/typings';
 import styles from './Card.module.css';
+import { Column, Table } from './Table';
 
 type Props<T> = {
   title: string;
@@ -52,12 +51,12 @@ export const Card = <
   };
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <header>
         <h3 className={styles.title}>{title}</h3>
       </header>
       <main className={styles.body}>{renderBody()}</main>
-      {footer && <footer>{footer}</footer>}
-    </div>
+      {footer && <footer className={styles.footer}>{footer}</footer>}
+    </section>
   );
 };
