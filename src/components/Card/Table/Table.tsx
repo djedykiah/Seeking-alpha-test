@@ -1,27 +1,41 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 
 import { Cell } from './Cell';
 import { Row } from './Row';
+import styles from './Table.module.css';
 import { Column } from './typings';
 
-type Props = {
-  data: any;
+type Props<T> = {
+  data: T[];
   columns: Column[];
 };
 
-export const Table: FC<Props> = ({ data, columns }) => {
-  console.log(columns);
-  console.log(data);
+export const Table = <
+  T extends {
+    [key: string]: any;
+  },
+>({
+  data,
+  columns,
+}: Props<T>) => {
+  const shouldRenderHeading = useMemo(
+    () => columns.some(({ title }) => title),
+    [columns],
+  );
 
   return (
-    <div
-      style={{
-        display: 'grid',
-        rowGap: '15px',
-      }}
-    >
+    <div className={styles.container}>
+      {shouldRenderHeading && (
+        <div className={styles.heading}>
+          <Row length={columns.length}>
+            {columns.map(({ title, align }) => (
+              <Cell align={align}>{title}</Cell>
+            ))}
+          </Row>
+        </div>
+      )}
       {data.map((item) => (
-        <Row>
+        <Row length={columns.length}>
           {columns.map(({ field, align }) => (
             <Cell align={align}>{item[field]}</Cell>
           ))}

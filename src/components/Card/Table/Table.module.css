@@ -1,0 +1,10 @@
+.heading {
+  font-size: 12px;
+  font-weight: 800;
+  color: #757575;
+}
+
+.container {
+  display: grid;
+  row-gap: 15px;
+}

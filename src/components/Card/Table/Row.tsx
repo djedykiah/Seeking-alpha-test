@@ -1,10 +1,15 @@
-import React from 'react';
+import { FC, ReactNode } from 'react';
 
-export const Row = ({ children }) => (
+type Props = {
+  length: number;
+  children: ReactNode;
+};
+
+export const Row: FC<Props> = ({ length, children }) => (
   <div
     style={{
       display: 'grid',
-      gridTemplateColumns: `repeat(${children.length}, 1fr)`,
+      gridTemplateColumns: `repeat(${length}, 1fr)`,
     }}
   >
     {children}
