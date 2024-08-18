@@ -6,10 +6,27 @@
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   padding: 30px 20px;
+  min-height: 222px;
   margin-bottom: 15px;
 
   background-color: white;
+
+  @media (min-width: 768px) {
+    max-width: 420px;
+  }
+}
+
+.body {
+  position: relative;
+
+  flex: 1;
+}
+
+.error {
+  text-align: center;
 }
 
 
