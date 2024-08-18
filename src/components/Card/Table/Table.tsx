@@ -1,9 +1,17 @@
-import React, { FC, useMemo } from 'react';
+import { useMemo } from 'react';
+
+import { Link } from '../../Link';
 
 import { Cell } from './Cell';
 import { Row } from './Row';
 import styles from './Table.module.css';
-import { Column } from './typings';
+
+export type Column = {
+  field: string;
+  align: 'left' | 'center' | 'right';
+  title?: string;
+  href?: string;
+};
 
 type Props<T> = {
   data: T[];
@@ -36,8 +44,10 @@ export const Table = <
       )}
       {data.map((item) => (
         <Row length={columns.length}>
-          {columns.map(({ field, align }) => (
-            <Cell align={align}>{item[field]}</Cell>
+          {columns.map(({ field, align, href }) => (
+            <Cell align={align}>
+              {href ? <Link to={href}>{item[field]}</Link> : item[field]}
+            </Cell>
           ))}
         </Row>
       ))}
