@@ -1,0 +1,16 @@
+.list {
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  padding-block: 10px;
+  text-align: right;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #b9b9b9f7;
+  }
+}

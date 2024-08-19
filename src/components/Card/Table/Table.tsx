@@ -45,7 +45,7 @@ export const Table = <
       {data.map((item) => (
         <Row length={columns.length}>
           {columns.map(({ field, align, href }) => (
-            <Cell align={align}>
+            <Cell key={field} align={align}>
               {href ? <Link to={href}>{item[field]}</Link> : item[field]}
             </Cell>
           ))}

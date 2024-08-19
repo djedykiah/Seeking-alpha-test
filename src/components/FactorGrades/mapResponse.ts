@@ -1,8 +1,8 @@
 import { FactorGradesResponse } from 'api';
 
-import { FactorGradeItem } from './FactorGrades';
+import { FactorGrade } from './FactorGrades';
 
-export const mapResponse = (res: FactorGradesResponse): FactorGradeItem => {
+export const mapResponse = (res: FactorGradesResponse): FactorGrade => {
   if (res.data && Array.isArray(res.data)) {
     return res.data.reduce(
       (acc, [key, value]) => ({

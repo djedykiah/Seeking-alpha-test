@@ -1,14 +1,12 @@
 import { useMemo } from 'react';
 
-import { useRatingsSummaryQuery } from '../../api';
+import { RatingsSummaryResponse, useRatingsSummaryQuery } from '../../api';
 import { Card } from '../Card';
-import { Column } from '../Card/Table/Table';
-
-import { mapResponse } from './mapResponse';
+import { Column } from '../Card/Table';
 
 const columns: Column[] = [
   {
-    field: 'label',
+    field: 'title',
     align: 'left',
     href: '/',
   },
@@ -23,21 +21,31 @@ const columns: Column[] = [
 ];
 
 export type RatingSummaryItem = {
-  label: string;
+  title: string;
   rating: 'HOLD' | 'BUY';
   score: number;
 };
 
 export const RatingsSummary = () => {
-  const { data = [], isError, isLoading } = useRatingsSummaryQuery();
+  const { data, isError, isLoading } = useRatingsSummaryQuery();
 
-  const preparedData = useMemo(() => mapResponse(data), [data]);
+  const items = useMemo(() => {
+    if (!data) {
+      return null;
+    }
+
+    return Object.entries(data)?.map(([key, value]) => ({
+      title: key?.replace(/_/g, ' '),
+      rating: value?.rating,
+      score: value?.score,
+    }));
+  }, [data]);
 
   return (
     <Card<RatingSummaryItem>
       title="Ratings Summary"
       layout="table"
-      items={preparedData}
+      items={items}
       columns={columns}
       isLoading={isLoading}
       isError={isError}

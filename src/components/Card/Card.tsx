@@ -3,6 +3,7 @@ import { ReactNode } from 'react';
 import { Loader } from '../Loader';
 
 import styles from './Card.module.css';
+import { List } from './List';
 import { Column, Table } from './Table';
 
 type Props<T> = {
@@ -41,13 +42,15 @@ export const Card = <
       );
     }
 
-    return (
-      <>
-        {layout === 'table' && columns?.length && (
-          <Table<T> data={items} columns={columns} />
-        )}
-      </>
-    );
+    if (layout === 'table' && columns?.length) {
+      return <Table<T> data={items} columns={columns} />;
+    }
+
+    if (layout === 'list') {
+      return <List items={items as unknown as ReactNode[][]} />;
+    }
+
+    return null;
   };
 
   return (

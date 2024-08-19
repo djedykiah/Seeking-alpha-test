@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { http } from '../lib';
 
-type QuantRankingResponse = {
+export type QuantRankingResponse = {
   sector: string;
   industry: string;
   rankings: {

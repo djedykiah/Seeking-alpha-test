@@ -2,19 +2,12 @@ import { useQuery } from '@tanstack/react-query';
 
 import { http } from '../lib';
 
-type RatingsSummaryResponse = {
+export type RatingsSummaryResponse = {
   [key: string]: {
     rating: 'HOLD' | 'BUY';
     score: number;
   };
 };
-
-const mapResponse = (res: RatingsSummaryResponse): any =>
-  Object.entries(res)?.map(([key, value]) => ({
-    label: key?.replace(/_/g, ' '),
-    rating: value?.rating,
-    score: value?.score,
-  }));
 
 export const useRatingsSummaryQuery = () =>
   useQuery<RatingsSummaryResponse>({
@@ -24,6 +17,6 @@ export const useRatingsSummaryQuery = () =>
         '/ratings-summary',
       );
 
-      return mapResponse(data);
+      return data;
     },
   });

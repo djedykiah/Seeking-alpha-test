@@ -3,13 +3,12 @@ import { useMemo } from 'react';
 import { useFactorGradesQuery } from '../../api';
 import { Card } from '../Card';
 import { Column } from '../Card/Table';
-import { Link } from '../Link';
 
 import { mapResponse } from './mapResponse';
 
 const columns: Column[] = [
   {
-    field: 'label',
+    field: 'title',
     align: 'left',
     href: '/',
   },
@@ -31,13 +30,13 @@ const columns: Column[] = [
 ];
 
 type Item = {
-  label: string;
+  title: string;
   '0': string;
   '3': string;
   '6': string;
 };
 
-export type FactorGradeItem = {
+export type FactorGrade = {
   [key: string]: string;
 };
 
@@ -48,7 +47,7 @@ export const FactorGrades = () => {
     '6m',
   ]);
 
-  const items = useMemo(() => {
+  const items: Item[] = useMemo(() => {
     if (!data) {
       return [];
     }
@@ -60,7 +59,7 @@ export const FactorGrades = () => {
     const m6 = preparedData[2];
 
     return Object.keys(now).map((key) => ({
-      label: key,
+      title: key,
       0: now[key],
       3: m3[key],
       6: m6[key],
@@ -75,11 +74,6 @@ export const FactorGrades = () => {
       columns={columns}
       isLoading={isLoading}
       isError={isError}
-      footer={
-        <Link to="/">
-          <strong>Quant ratings beat...</strong>
-        </Link>
-      }
     />
   );
 };
