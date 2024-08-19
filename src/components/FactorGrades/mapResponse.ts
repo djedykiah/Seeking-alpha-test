@@ -1,4 +1,4 @@
-import { FactorGradesResponse } from 'api';
+import { FactorGradesResponse } from '../../api';
 
 import { FactorGrade } from './FactorGrades';
 

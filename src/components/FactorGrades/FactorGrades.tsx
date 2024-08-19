@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 
 import { useFactorGradesQuery } from '../../api';
-import { Card } from '../Card';
-import { Column } from '../Card/Table';
+import { Card, Column } from '../Card';
 
 import { mapResponse } from './mapResponse';
 

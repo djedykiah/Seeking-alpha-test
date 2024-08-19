@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-import { RatingsSummaryResponse, useRatingsSummaryQuery } from '../../api';
+import { useRatingsSummaryQuery } from '../../api';
 import { Card } from '../Card';
 import { Column } from '../Card/Table';
 
@@ -20,7 +20,7 @@ const columns: Column[] = [
   },
 ];
 
-export type RatingSummaryItem = {
+export type Item = {
   title: string;
   rating: 'HOLD' | 'BUY';
   score: number;
@@ -29,9 +29,9 @@ export type RatingSummaryItem = {
 export const RatingsSummary = () => {
   const { data, isError, isLoading } = useRatingsSummaryQuery();
 
-  const items = useMemo(() => {
+  const items: Item[] = useMemo(() => {
     if (!data) {
-      return null;
+      return [];
     }
 
     return Object.entries(data)?.map(([key, value]) => ({
@@ -42,7 +42,7 @@ export const RatingsSummary = () => {
   }, [data]);
 
   return (
-    <Card<RatingSummaryItem>
+    <Card<Item>
       title="Ratings Summary"
       layout="table"
       items={items}

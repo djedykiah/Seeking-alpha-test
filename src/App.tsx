@@ -1,10 +1,20 @@
-import { FactorGrades } from './components/FactorGrades';
-import { Premium } from './components/Premium';
-import { QuantRanking } from './components/QuantRanking';
-import { RatingsSummary } from './components/RatingsSummary';
+import { useUserQuery } from './api';
 import styles from './App.module.css';
+import {
+  FactorGrades,
+  Loader,
+  Premium,
+  QuantRanking,
+  RatingsSummary,
+} from './components';
 
 function App() {
+  const { isLoading } = useUserQuery();
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <div className={styles.container}>
       <Premium>

@@ -1,6 +1,7 @@
 import { FactorGradesResponse } from './factor-grades';
 import { QuantRankingResponse } from './quant-ranking';
 import { RatingsSummaryResponse } from './ratings-summary';
+import { UserResponse } from './user';
 
 export const fg0: FactorGradesResponse = {
   Key1: {
@@ -77,4 +78,8 @@ export const qr: QuantRankingResponse = {
       total: 28,
     },
   },
+};
+
+export const usr: UserResponse = {
+  premium: true,
 };
