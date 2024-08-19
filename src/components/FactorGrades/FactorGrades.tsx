@@ -1,9 +1,7 @@
 import { useMemo } from 'react';
 
-import { useFactorGradesQuery } from '../../api';
+import { mapResponse, useFactorGradesQuery } from '../../api';
 import { Card, Column } from '../Card';
-
-import { mapResponse } from './mapResponse';
 
 const columns: Column[] = [
   {
