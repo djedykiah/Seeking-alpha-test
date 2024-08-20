@@ -1,4 +1,5 @@
 import { Card } from '../Card';
+import { ErrorMessage } from '../ErrorMessage';
 import { Link } from '../Link';
 
 import { CARD_MIN_HEIGHT, CARD_TITLE } from './const';
@@ -16,7 +17,7 @@ export const QuantRanking = () => {
   return (
     <Card title={CARD_TITLE} minHeight={CARD_MIN_HEIGHT}>
       {error ? (
-        <p>Unable to fetch data. Try again in a few moments.</p>
+        <ErrorMessage reason={error.message} />
       ) : (
         <>
           <List items={items} />

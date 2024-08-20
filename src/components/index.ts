@@ -1,4 +1,5 @@
 export * from './Card';
+export * from './ErrorMessage';
 export * from './FactorGrades';
 export * from './Link';
 export * from './Loader';
