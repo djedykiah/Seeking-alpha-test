@@ -1,4 +1,5 @@
 {
+  // TODO: fix
   "compilerOptions": {
     "target": "es6",
     "types": ["node"],
@@ -22,15 +23,9 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
   },
-  "include": [
-    "src",
-    ".eslint.js",
-    "vite.config.ts"
-  ],
   "exclude": [
     "node_modules",
-    "**/node_modules/*",
     "vite.config.ts",
-    "build",
+    "dist"
   ]
 }
