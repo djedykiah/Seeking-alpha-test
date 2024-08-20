@@ -1,52 +1,21 @@
-import { useMemo } from 'react';
-
-import {
-  QuantRankingResponse,
-  RankingType,
-  useQuantRankingQuery,
-} from '../../api';
 import { Card } from '../Card';
 import { Link } from '../Link';
 
-import { getRankingTitle } from './getRankingTitle';
+import { CARD_MIN_HEIGHT, CARD_TITLE } from './const';
 import { List } from './List';
-
-const getRankingsTypes = (
-  rankings: QuantRankingResponse['rankings'],
-): RankingType[] => Object.keys(rankings) as RankingType[];
+import { QuantRankingLoader } from './QuantRankingLoader';
+import { useQuantRankingItems } from './useQuantRankingItems';
 
 export const QuantRanking = () => {
-  const { data, isError, isLoading } = useQuantRankingQuery();
+  const { items, isLoading, error } = useQuantRankingItems();
 
-  const items = useMemo(() => {
-    if (!data) {
-      return [];
-    }
-
-    return [
-      {
-        title: 'Sector',
-        value: <Link to={`/sector/${data.sector}`}>{data.sector}</Link>,
-      },
-      {
-        title: 'Industry',
-        value: <Link to={`/industry/${data.industry}`}>{data.industry}</Link>,
-      },
-      ...getRankingsTypes(data.rankings).map((ranking) => ({
-        title: getRankingTitle(ranking),
-        value: (
-          <Link to={`/ranking/${ranking}`}>
-            <strong>{data.rankings[ranking].rank}</strong> out of{' '}
-            <strong>{data.rankings[ranking].total}</strong>
-          </Link>
-        ),
-      })),
-    ];
-  }, [data]);
+  if (isLoading) {
+    return <QuantRankingLoader />;
+  }
 
   return (
-    <Card title="Quant Ranking" isLoading={isLoading} minHeight={407}>
-      {isError ? (
+    <Card title={CARD_TITLE} minHeight={CARD_MIN_HEIGHT}>
+      {error ? (
         <p>Unable to fetch data. Try again in a few moments.</p>
       ) : (
         <>

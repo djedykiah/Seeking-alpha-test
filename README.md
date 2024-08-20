@@ -2,7 +2,7 @@ Anton Fediienko
 
 ## Installation
 
-- ### `npm install`
+### `npm install`
 
 ## Available Scripts
 

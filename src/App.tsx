@@ -1,7 +1,10 @@
 import { lazy, Suspense } from 'react';
 
+import { FactorGradesLoader } from './components/FactorGrades/FactorGradesLoader';
 import { Loader } from './components/Loader';
 import { Premium } from './components/Premium';
+import { QuantRankingLoader } from './components/QuantRanking/QuantRankingLoader';
+import { RatingsSummaryLoader } from './components/RatingsSummary/RatingsSummaryLoader';
 import { useUserQuery } from './api';
 
 import styles from './App.module.css';
@@ -33,17 +36,17 @@ function App() {
 
   return (
     <div className={styles.container}>
-      <Suspense fallback={<div>Loading ratings summary...</div>}>
+      <Suspense fallback={<RatingsSummaryLoader />}>
         <Premium>
           <RatingsSummary />
         </Premium>
       </Suspense>
-      <Suspense fallback={<div>Loading factor grades...</div>}>
+      <Suspense fallback={<FactorGradesLoader />}>
         <Premium>
           <FactorGrades />
         </Premium>
       </Suspense>
-      <Suspense fallback={<div>Loading quant ranking...</div>}>
+      <Suspense fallback={<QuantRankingLoader />}>
         <QuantRanking />
       </Suspense>
     </div>

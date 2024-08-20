@@ -27,7 +27,7 @@ export type FactorGradesResponse =
 
 export type FactorGrade = Record<string, string>;
 
-export type FactorGrades = Record<Interval, Record<string, string>>;
+export type FactorGrades = Record<Interval, FactorGrade>;
 
 const mapFactorGrades6mResponse = (res: FactorGrades6MResponse): FactorGrade =>
   res.data.reduce(
@@ -67,7 +67,7 @@ const getFactorGradesByInterval = async (
   return data;
 };
 
-const mapFactorGrades = (
+const groupFactorGradesByInterval = (
   factorGrades: FactorGrade[],
   intervals: Interval[],
 ): FactorGrades =>
@@ -87,6 +87,6 @@ export const useFactorGradesQuery = (intervals: Interval[]) =>
         intervals.map(getFactorGradesByInterval),
       );
 
-      return mapFactorGrades(factorGrades, intervals);
+      return groupFactorGradesByInterval(factorGrades, intervals);
     },
   });
