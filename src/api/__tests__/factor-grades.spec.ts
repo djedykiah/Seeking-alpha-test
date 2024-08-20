@@ -7,9 +7,9 @@ import {
   Interval,
   useFactorGradesQuery,
 } from '../factor-grades';
-import { request } from '../httpUtils';
+import { request } from '../http-utils';
 
-vi.mock('../httpUtils', () => ({
+vi.mock('../http-utils', () => ({
   request: vi.fn(),
 }));
 

@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { request } from './httpUtils';
+import { request } from './http-utils';
 
 type Ranking = {
   rank: number;

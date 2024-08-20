@@ -3,7 +3,7 @@ import { lazy, Suspense } from 'react';
 import { FactorGradesLoader } from './components/FactorGrades/FactorGradesLoader';
 import { Loader } from './components/Loader';
 import { Premium } from './components/Premium';
-import { QuantRankingLoader } from './components/QuantRanking/QuantRankingLoader';
+import { QuantRanking } from './components/QuantRanking';
 import { RatingsSummaryLoader } from './components/RatingsSummary/RatingsSummaryLoader';
 import { useUserQuery } from './api';
 
@@ -18,12 +18,6 @@ const RatingsSummary = lazy(() =>
 const FactorGrades = lazy(() =>
   import('./components/FactorGrades').then((module) => ({
     default: module.FactorGrades,
-  })),
-);
-
-const QuantRanking = lazy(() =>
-  import('./components/QuantRanking').then((module) => ({
-    default: module.QuantRanking,
   })),
 );
 
@@ -46,9 +40,7 @@ function App() {
           <FactorGrades />
         </Premium>
       </Suspense>
-      <Suspense fallback={<QuantRankingLoader />}>
-        <QuantRanking />
-      </Suspense>
+      <QuantRanking />
     </div>
   );
 }
