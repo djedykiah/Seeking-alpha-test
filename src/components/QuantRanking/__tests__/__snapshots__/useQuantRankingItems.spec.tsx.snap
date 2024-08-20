@@ -1,0 +1,52 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`useQuantRankingItems > should return items when data is available 1`] = `
+[
+  {
+    "title": "Sector",
+    "value": <Link
+      to="/sector/Tech"
+    >
+      Tech
+    </Link>,
+  },
+  {
+    "title": "Industry",
+    "value": <Link
+      to="/industry/Software"
+    >
+      Software
+    </Link>,
+  },
+  {
+    "title": "Title for type1",
+    "value": <Link
+      to="/ranking/type1"
+    >
+      <strong>
+        1
+      </strong>
+       out of
+       
+      <strong>
+        10
+      </strong>
+    </Link>,
+  },
+  {
+    "title": "Title for type2",
+    "value": <Link
+      to="/ranking/type2"
+    >
+      <strong>
+        5
+      </strong>
+       out of
+       
+      <strong>
+        20
+      </strong>
+    </Link>,
+  },
+]
+`;

@@ -1,5 +1,5 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import { describe, expect, it, Mock, vi } from 'vitest';
+import { Mock } from 'vitest';
 
 import { createWrapper } from '../../testUtils';
 import { request } from '../httpUtils';
