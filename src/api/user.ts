@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { resolveAfter } from '../utils';
 
-import { request } from './httpUtils';
+// import { request } from './httpUtils';
 import { usr } from './mocks';
 
 export type UserResponse = {

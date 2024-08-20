@@ -1,4 +1,4 @@
-import { RankingType } from 'api';
+import { RankingType } from '../../api';
 
 export const getRankingTitle = (ranking: RankingType): string => {
   if (ranking === 'industry_specific') {

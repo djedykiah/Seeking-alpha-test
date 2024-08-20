@@ -1,4 +1,4 @@
-Seeking alpha assignment by Anton Fediienko
+Anton Fediienko
 
 ## Installation
 

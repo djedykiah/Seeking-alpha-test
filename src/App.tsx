@@ -3,6 +3,7 @@ import { lazy, Suspense } from 'react';
 import { Loader } from './components/Loader';
 import { Premium } from './components/Premium';
 import { useUserQuery } from './api';
+
 import styles from './App.module.css';
 
 const RatingsSummary = lazy(() =>

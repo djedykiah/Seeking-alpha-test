@@ -1,5 +1,4 @@
-import { RankingType } from 'api';
-
+import { RankingType } from '../../../api';
 import { getRankingTitle } from '../getRankingTitle';
 
 describe('getRankingTitle', () => {

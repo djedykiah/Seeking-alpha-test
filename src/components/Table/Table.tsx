@@ -4,6 +4,7 @@ import { Link } from '../Link';
 
 import { Cell } from './Cell';
 import { Row } from './Row';
+
 import styles from './Table.module.css';
 
 export type Column<T> = {
