@@ -1,18 +1,15 @@
 .title {
-  margin-bottom: 15px;
-
-  font-size: 30px;
+  margin-bottom: 1rem;
+  font-size: 2rem;
   color: #757575;
 }
 
 .container {
   display: flex;
   flex-direction: column;
-  padding: 30px 20px;
-  min-height: 222px;
-  margin-bottom: 15px;
-
-  background-color: white;
+  padding: 1.9rem 1.3rem;
+  margin-bottom: 1rem;
+  background-color: #ffffff;
 
   @media (min-width: 768px) {
     max-width: 420px;
@@ -21,12 +18,7 @@
 
 .body {
   position: relative;
-
   flex: 1;
-}
-
-.footer {
-  margin-top: 30px;
 }
 
 

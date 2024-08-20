@@ -6,8 +6,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 30px;
-  padding-block: 10px;
+  gap: 2rem;
+  padding-block: 0.6rem;
   text-align: right;
 
   &:not(:last-child) {

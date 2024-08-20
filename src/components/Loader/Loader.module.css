@@ -1,11 +1,9 @@
 .loader {
-  width: 30px;
-
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%);
-
+  width: 30px;
   aspect-ratio: 4;
   background: radial-gradient(circle closest-side,#000 90%,#0000) 0/calc(100%/3) 100% space;
   clip-path: inset(0 100% 0 0);
