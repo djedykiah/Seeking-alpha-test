@@ -1,9 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { resolveAfter } from '../utils';
-
-// import { request } from './httpUtils';
-import { fgs } from './mocks';
+import { request } from './httpUtils';
 
 export type Interval = 'now' | '3m' | '6m';
 
@@ -52,9 +49,7 @@ const mapFactorGradesNowResponse = (
 const getFactorGradesByInterval = async (
   interval: Interval,
 ): Promise<FactorGrade> => {
-  // const data = await request(`/factor-grades/${interval}`);
-
-  const data = await resolveAfter(fgs[interval], 3000);
+  const data = await request(`/factor-grades/${interval}`);
 
   if (interval === 'now') {
     return mapFactorGradesNowResponse(data);
