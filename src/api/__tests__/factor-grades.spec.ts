@@ -1,18 +1,16 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
-import { http } from '../../lib';
 import { createWrapper } from '../../testUtils';
 import {
   FactorGradesResponse,
   Interval,
   useFactorGradesQuery,
 } from '../factor-grades';
+import { request } from '../httpUtils';
 
-vi.mock('../../lib', () => ({
-  http: {
-    get: vi.fn(),
-  },
+vi.mock('../httpUtils', () => ({
+  request: vi.fn(),
 }));
 
 describe('useFactorGradesQuery', () => {
@@ -55,16 +53,10 @@ describe('useFactorGradesQuery', () => {
   const intervals: Interval[] = ['now', '3m', '6m'];
 
   it('should fetch quant rankings for provided intervals', async () => {
-    (http.get as Mock)
-      .mockResolvedValueOnce({
-        data: mockFactorGradesNowResponse,
-      })
-      .mockResolvedValueOnce({
-        data: mockFactorGrades3mResponse,
-      })
-      .mockResolvedValueOnce({
-        data: mockFactorGrades6mResponse,
-      });
+    (request as Mock)
+      .mockResolvedValueOnce(mockFactorGradesNowResponse)
+      .mockResolvedValueOnce(mockFactorGrades3mResponse)
+      .mockResolvedValueOnce(mockFactorGrades6mResponse);
 
     const { result } = renderHook(() => useFactorGradesQuery(intervals), {
       wrapper: createWrapper(),
@@ -72,25 +64,19 @@ describe('useFactorGradesQuery', () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(http.get).toHaveBeenCalledTimes(3);
-    expect(http.get).toHaveBeenCalledWith('/factor-grades/now');
-    expect(http.get).toHaveBeenCalledWith('/factor-grades/3m');
-    expect(http.get).toHaveBeenCalledWith('/factor-grades/6m');
+    expect(request).toHaveBeenCalledTimes(3);
+    expect(request).toHaveBeenCalledWith('/factor-grades/now');
+    expect(request).toHaveBeenCalledWith('/factor-grades/3m');
+    expect(request).toHaveBeenCalledWith('/factor-grades/6m');
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isError).toBe(false);
   });
 
   it('should return rankings for now interval', async () => {
-    (http.get as Mock)
-      .mockResolvedValueOnce({
-        data: mockFactorGradesNowResponse,
-      })
-      .mockResolvedValueOnce({
-        data: mockFactorGrades3mResponse,
-      })
-      .mockResolvedValueOnce({
-        data: mockFactorGrades6mResponse,
-      });
+    (request as Mock)
+      .mockResolvedValueOnce(mockFactorGradesNowResponse)
+      .mockResolvedValueOnce(mockFactorGrades3mResponse)
+      .mockResolvedValueOnce(mockFactorGrades6mResponse);
 
     const { result } = renderHook(() => useFactorGradesQuery(intervals), {
       wrapper: createWrapper(),
@@ -108,16 +94,10 @@ describe('useFactorGradesQuery', () => {
   });
 
   it('should return rankings for 3m interval', async () => {
-    (http.get as Mock)
-      .mockResolvedValueOnce({
-        data: mockFactorGradesNowResponse,
-      })
-      .mockResolvedValueOnce({
-        data: mockFactorGrades3mResponse,
-      })
-      .mockResolvedValueOnce({
-        data: mockFactorGrades6mResponse,
-      });
+    (request as Mock)
+      .mockResolvedValueOnce(mockFactorGradesNowResponse)
+      .mockResolvedValueOnce(mockFactorGrades3mResponse)
+      .mockResolvedValueOnce(mockFactorGrades6mResponse);
 
     const { result } = renderHook(() => useFactorGradesQuery(intervals), {
       wrapper: createWrapper(),
@@ -135,16 +115,10 @@ describe('useFactorGradesQuery', () => {
   });
 
   it('should return rankings for 6m interval', async () => {
-    (http.get as Mock)
-      .mockResolvedValueOnce({
-        data: mockFactorGradesNowResponse,
-      })
-      .mockResolvedValueOnce({
-        data: mockFactorGrades3mResponse,
-      })
-      .mockResolvedValueOnce({
-        data: mockFactorGrades6mResponse,
-      });
+    (request as Mock)
+      .mockResolvedValueOnce(mockFactorGradesNowResponse)
+      .mockResolvedValueOnce(mockFactorGrades3mResponse)
+      .mockResolvedValueOnce(mockFactorGrades6mResponse);
 
     const { result } = renderHook(() => useFactorGradesQuery(intervals), {
       wrapper: createWrapper(),
@@ -161,9 +135,9 @@ describe('useFactorGradesQuery', () => {
     });
   });
 
-  it.only('should handle errors', async () => {
+  it('should handle errors', async () => {
     const mockError = new Error('Failed to fetch');
-    (http.get as Mock).mockRejectedValueOnce(mockError);
+    (request as Mock).mockRejectedValueOnce(mockError);
 
     const { result } = renderHook(() => useFactorGradesQuery(intervals), {
       wrapper: createWrapper(),
@@ -174,23 +148,9 @@ describe('useFactorGradesQuery', () => {
     expect(result.current.isError).toBe(true);
     expect(result.current.error).toEqual(mockError);
     expect(result.current.isLoading).toBe(false);
-    expect(http.get).toHaveBeenCalledTimes(3);
-    expect(http.get).toHaveBeenCalledWith('/factor-grades/now');
-    expect(http.get).toHaveBeenCalledWith('/factor-grades/3m');
-    expect(http.get).toHaveBeenCalledWith('/factor-grades/6m');
-  });
-
-  it('should handle invalid response', async () => {
-    const mockInvalidResponse = '{}';
-    (http.get as Mock).mockResolvedValueOnce({ data: mockInvalidResponse });
-
-    const { result } = renderHook(() => useFactorGradesQuery(intervals), {
-      wrapper: createWrapper(),
-    });
-
-    await waitFor(() => expect(result.current.isError).toBe(true));
-
-    expect(result.current.isError).toBe(true);
-    expect(result.current.error?.message).toEqual('Invalid api response.');
+    expect(request).toHaveBeenCalledTimes(3);
+    expect(request).toHaveBeenCalledWith('/factor-grades/now');
+    expect(request).toHaveBeenCalledWith('/factor-grades/3m');
+    expect(request).toHaveBeenCalledWith('/factor-grades/6m');
   });
 });

@@ -1,14 +1,12 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
-import { http } from '../../lib';
 import { createWrapper } from '../../testUtils';
+import { request } from '../httpUtils';
 import { QuantRankingResponse, useQuantRankingQuery } from '../quant-ranking';
 
-vi.mock('../../lib', () => ({
-  http: {
-    get: vi.fn(),
-  },
+vi.mock('../httpUtils', () => ({
+  request: vi.fn(),
 }));
 
 describe('useQuantRankingQuery', () => {
@@ -31,9 +29,7 @@ describe('useQuantRankingQuery', () => {
         },
       },
     };
-    (http.get as Mock).mockResolvedValueOnce({
-      data: mockQuantRankingResponse,
-    });
+    (request as Mock).mockResolvedValueOnce(mockQuantRankingResponse);
 
     const { result } = renderHook(() => useQuantRankingQuery(), {
       wrapper: createWrapper(),
@@ -44,12 +40,12 @@ describe('useQuantRankingQuery', () => {
     expect(result.current.data).toEqual(mockQuantRankingResponse);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isError).toBe(false);
-    expect(http.get).toHaveBeenCalledWith('/quant-ranking');
+    expect(request).toHaveBeenCalledWith('/quant-ranking');
   });
 
   it('should handle errors', async () => {
     const mockError = new Error('Failed to fetch');
-    (http.get as Mock).mockRejectedValueOnce(mockError);
+    (request as Mock).mockRejectedValueOnce(mockError);
 
     const { result } = renderHook(() => useQuantRankingQuery(), {
       wrapper: createWrapper(),
@@ -60,6 +56,6 @@ describe('useQuantRankingQuery', () => {
     expect(result.current.isError).toBe(true);
     expect(result.current.error).toEqual(mockError);
     expect(result.current.isLoading).toBe(false);
-    expect(http.get).toHaveBeenCalledWith('/quant-ranking');
+    expect(request).toHaveBeenCalledWith('/quant-ranking');
   });
 });

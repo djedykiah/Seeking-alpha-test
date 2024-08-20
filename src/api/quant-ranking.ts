@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { http } from '../lib';
+import { request } from './httpUtils';
 
 type Ranking = {
   rank: number;
@@ -22,9 +22,5 @@ export type RankingType = keyof QuantRankingResponse['rankings'];
 export const useQuantRankingQuery = () =>
   useQuery<QuantRankingResponse>({
     queryKey: ['quant-ranking'],
-    queryFn: async () => {
-      const { data } = await http.get<QuantRankingResponse>('/quant-ranking');
-
-      return data;
-    },
+    queryFn: () => request('/quant-ranking'),
   });

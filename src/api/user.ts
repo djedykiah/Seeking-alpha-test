@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { http } from '../lib';
 import { resolveAfter } from '../utils';
 
+import { request } from './httpUtils';
 import { usr } from './mocks';
 
 export type UserResponse = {
@@ -13,7 +13,7 @@ export const useUserQuery = () =>
   useQuery<UserResponse>({
     queryKey: ['user'],
     queryFn: async () => {
-      // const { data: user } = await http.get<UserResponse>('/user');
+      // const user = await request('/user');
 
       const user = resolveAfter(usr, 100);
 

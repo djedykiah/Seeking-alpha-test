@@ -1,14 +1,12 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { describe, expect, it, Mock, vi } from 'vitest';
 
-import { http } from '../../lib';
 import { createWrapper } from '../../testUtils';
+import { request } from '../httpUtils';
 import { useRatingsSummaryQuery } from '../ratings-summary';
 
-vi.mock('../../lib', () => ({
-  http: {
-    get: vi.fn(),
-  },
+vi.mock('../httpUtils', () => ({
+  request: vi.fn(),
 }));
 
 describe('useRatingsSummaryQuery', () => {
@@ -27,9 +25,7 @@ describe('useRatingsSummaryQuery', () => {
         score: 12,
       },
     };
-    (http.get as Mock).mockResolvedValueOnce({
-      data: mockRatingsSummaryResponse,
-    });
+    (request as Mock).mockResolvedValueOnce(mockRatingsSummaryResponse);
 
     const { result } = renderHook(() => useRatingsSummaryQuery(), {
       wrapper: createWrapper(),
@@ -40,12 +36,12 @@ describe('useRatingsSummaryQuery', () => {
     expect(result.current.data).toEqual(mockRatingsSummaryResponse);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.isError).toBe(false);
-    expect(http.get).toHaveBeenCalledWith('/ratings-summary');
+    expect(request).toHaveBeenCalledWith('/ratings-summary');
   });
 
   it('should handle errors', async () => {
     const mockError = new Error('Failed to fetch');
-    (http.get as Mock).mockRejectedValueOnce(mockError);
+    (request as Mock).mockRejectedValueOnce(mockError);
 
     const { result } = renderHook(() => useRatingsSummaryQuery(), {
       wrapper: createWrapper(),
@@ -56,6 +52,6 @@ describe('useRatingsSummaryQuery', () => {
     expect(result.current.isError).toBe(true);
     expect(result.current.error).toEqual(mockError);
     expect(result.current.isLoading).toBe(false);
-    expect(http.get).toHaveBeenCalledWith('/ratings-summary');
+    expect(request).toHaveBeenCalledWith('/ratings-summary');
   });
 });

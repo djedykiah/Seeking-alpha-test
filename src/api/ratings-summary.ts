@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { http } from '../lib';
+import { request } from './httpUtils';
 
 export type Rating = 'HOLD' | 'BUY';
 
@@ -15,11 +15,5 @@ export type RatingsSummaryResponse = Record<
 export const useRatingsSummaryQuery = () =>
   useQuery<RatingsSummaryResponse>({
     queryKey: ['ratings-summary'],
-    queryFn: async () => {
-      const { data } = await http.get<RatingsSummaryResponse>(
-        '/ratings-summary',
-      );
-
-      return data;
-    },
+    queryFn: () => request('/ratings-summary'),
   });
