@@ -6,7 +6,7 @@ type Props = {
 };
 
 export const Link: FC<Props> = ({ children, to }) => (
-  <a href={to} target="_blank" style={{ color: '#006dff' }}>
+  <a href={to} target="_blank" style={{ color: '#2867db' }}>
     {children}
   </a>
 );

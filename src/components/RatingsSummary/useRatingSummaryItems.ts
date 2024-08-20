@@ -5,7 +5,7 @@ import { Rating, useRatingsSummaryQuery } from '../../api';
 export type RatingSummaryItem = {
   title: string;
   rating: Rating;
-  score: number;
+  score: string;
 };
 
 type Api = {
@@ -25,7 +25,7 @@ export const useRatingSummaryItems = (): Api => {
     return Object.entries(data).map(([key, { rating, score }]) => ({
       title: key.replace(/_/g, ' '),
       rating,
-      score,
+      score: score.toFixed(2),
     }));
   }, [data]);
 

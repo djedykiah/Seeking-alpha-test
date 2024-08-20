@@ -7,6 +7,8 @@ import { List } from './List';
 import { QuantRankingLoader } from './QuantRankingLoader';
 import { useQuantRankingItems } from './useQuantRankingItems';
 
+import styles from './QuantRanking.module.css';
+
 export const QuantRanking = () => {
   const { items, isLoading, error } = useQuantRankingItems();
 
@@ -21,9 +23,11 @@ export const QuantRanking = () => {
       ) : (
         <>
           <List items={items} />
-          <footer style={{ marginTop: 15 }}>
+          <footer className={styles.footer}>
             <Link to="/quant-ratings">
-              <strong>Quant Ratings Beat The Market {'>>'}</strong>
+              <strong className={styles.link}>
+                Quant Ratings Beat The Market »
+              </strong>
             </Link>
           </footer>
         </>
