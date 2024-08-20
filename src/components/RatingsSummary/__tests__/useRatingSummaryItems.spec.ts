@@ -22,8 +22,8 @@ describe('useRatingSummaryItems', () => {
     const { result } = renderHook(() => useRatingSummaryItems());
 
     expect(result.current.items).toEqual([
-      { title: 'Rating 1', rating: 4, score: 90 },
-      { title: 'Rating 2', rating: 5, score: 80 },
+      { title: 'Rating 1', rating: 4, score: '90.00' },
+      { title: 'Rating 2', rating: 5, score: '80.00' },
     ]);
     expect(result.current.isLoading).toBe(false);
     expect(result.current.error).toBe(null);
