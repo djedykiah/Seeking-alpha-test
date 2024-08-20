@@ -1,44 +1,48 @@
 import { useMemo } from 'react';
 
-import { mapResponse, useFactorGradesQuery } from '../../api';
-import { Card, Column } from '../Card';
+import {
+  FactorGrades as FactorGradesType,
+  Interval,
+  useFactorGradesQuery,
+} from '../../api';
+import { Card } from '../Card';
+import { Column, Table } from '../Table';
 
-const columns: Column[] = [
+type Item = {
+  title: string;
+  now: string;
+  '3m': string;
+  '6m': string;
+};
+
+const columns: Column<Item>[] = [
   {
     field: 'title',
     align: 'left',
     href: '/',
   },
   {
-    field: '0',
+    field: 'now',
     align: 'center',
     title: 'Now',
   },
   {
-    field: '3',
+    field: '3m',
     align: 'center',
     title: '3M ago',
   },
   {
-    field: '6',
+    field: '6m',
     align: 'center',
     title: '6M ago',
   },
 ];
 
-type Item = {
-  title: string;
-  '0': string;
-  '3': string;
-  '6': string;
-};
-
-export type FactorGrade = {
-  [key: string]: string;
-};
+const getIntervalsTypes = (factorGrades: FactorGradesType): Interval[] =>
+  Object.keys(factorGrades) as Interval[];
 
 export const FactorGrades = () => {
-  const { data, isError, isLoading } = useFactorGradesQuery([
+  const { data, isError, isLoading, error } = useFactorGradesQuery([
     'now',
     '3m',
     '6m',
@@ -49,28 +53,30 @@ export const FactorGrades = () => {
       return [];
     }
 
-    const preparedData = data.map(mapResponse);
+    const titles = [
+      ...new Set(
+        Object.values(data).flatMap((intervalObj) => Object.keys(intervalObj)),
+      ),
+    ];
 
-    const now = preparedData[0];
-    const m3 = preparedData[1];
-    const m6 = preparedData[2];
-
-    return Object.keys(now).map((key) => ({
-      title: key,
-      0: now[key],
-      3: m3[key],
-      6: m6[key],
-    }));
+    return titles.map((title) =>
+      getIntervalsTypes(data).reduce(
+        (acc, interval) => ({
+          ...acc,
+          [interval]: data[interval][title] ?? '',
+        }),
+        { title } as Item,
+      ),
+    );
   }, [data]);
 
   return (
-    <Card<Item>
-      title="Factor Grades"
-      layout="table"
-      items={items}
-      columns={columns}
-      isLoading={isLoading}
-      isError={isError}
-    />
+    <Card title="Factor Grades" isLoading={isLoading} minHeight={333}>
+      {isError ? (
+        <p>Unable to fetch data. Try again in a few moments. {error.message}</p>
+      ) : (
+        <Table data={items} columns={columns} />
+      )}
+    </Card>
   );
 };
