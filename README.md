@@ -1,4 +1,4 @@
-Anton Fediienko
+Anton Fediienko, Assignment execution time - 16 hours
 
 ## Installation
 
