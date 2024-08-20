@@ -9,9 +9,5 @@ export type UserResponse = {
 export const useUserQuery = () =>
   useQuery<UserResponse>({
     queryKey: ['user'],
-    queryFn: async () => {
-      const user = await request('/user');
-
-      return user;
-    },
+    queryFn: async () => request('/user'),
   });
