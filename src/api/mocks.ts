@@ -65,15 +65,15 @@ export const qr: QuantRankingResponse = {
   industry: 'Industry',
   sector: 'Sector',
   rankings: {
-    Rank1: {
+    overall: {
       rank: 825,
       total: 44432,
     },
-    Rank2: {
+    sector: {
       rank: 105,
       total: 522,
     },
-    Rank3: {
+    industry_specific: {
       rank: 8,
       total: 28,
     },

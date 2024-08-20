@@ -2,16 +2,22 @@ import { useQuery } from '@tanstack/react-query';
 
 import { http } from '../lib';
 
+type Ranking = {
+  rank: number;
+  total: number;
+};
+
 export type QuantRankingResponse = {
   sector: string;
   industry: string;
   rankings: {
-    [key: string]: {
-      rank: number;
-      total: number;
-    };
+    industry_specific: Ranking;
+    overall: Ranking;
+    sector: Ranking;
   };
 };
+
+export type RankingType = keyof QuantRankingResponse['rankings'];
 
 export const useQuantRankingQuery = () =>
   useQuery<QuantRankingResponse>({
