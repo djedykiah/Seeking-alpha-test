@@ -6,10 +6,10 @@ import {
   FactorGradesResponse,
   Interval,
   useFactorGradesQuery,
-} from '../factor-grades';
-import { request } from '../http-utils';
+} from '../factorGrades';
+import { request } from '../httpUtils';
 
-vi.mock('../http-utils', () => ({
+vi.mock('../httpUtils', () => ({
   request: vi.fn(),
 }));
 

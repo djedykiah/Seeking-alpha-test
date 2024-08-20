@@ -2,10 +2,10 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { Mock } from 'vitest';
 
 import { createWrapper } from '../../testUtils';
-import { request } from '../http-utils';
-import { QuantRankingResponse, useQuantRankingQuery } from '../quant-ranking';
+import { request } from '../httpUtils';
+import { QuantRankingResponse, useQuantRankingQuery } from '../quantRanking';
 
-vi.mock('../http-utils', () => ({
+vi.mock('../httpUtils', () => ({
   request: vi.fn(),
 }));
 

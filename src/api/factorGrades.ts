@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-import { request } from './http-utils';
+import { request } from './httpUtils';
 
 export type Interval = 'now' | '3m' | '6m';
 

@@ -2,10 +2,10 @@ import { renderHook, waitFor } from '@testing-library/react';
 import { Mock } from 'vitest';
 
 import { createWrapper } from '../../testUtils';
-import { request } from '../http-utils';
-import { useRatingsSummaryQuery } from '../ratings-summary';
+import { request } from '../httpUtils';
+import { useRatingsSummaryQuery } from '../ratingsSummary';
 
-vi.mock('../http-utils', () => ({
+vi.mock('../httpUtils', () => ({
   request: vi.fn(),
 }));
 
