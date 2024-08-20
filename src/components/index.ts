@@ -5,3 +5,4 @@ export * from './Loader';
 export * from './Premium';
 export * from './QuantRanking';
 export * from './RatingsSummary';
+export * from './Table';
