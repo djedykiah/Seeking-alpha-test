@@ -2,12 +2,15 @@ import { useQuery } from '@tanstack/react-query';
 
 import { http } from '../lib';
 
-export type RatingsSummaryResponse = {
-  [key: string]: {
-    rating: 'HOLD' | 'BUY';
+export type Rating = 'HOLD' | 'BUY';
+
+export type RatingsSummaryResponse = Record<
+  string,
+  {
+    rating: Rating;
     score: number;
-  };
-};
+  }
+>;
 
 export const useRatingsSummaryQuery = () =>
   useQuery<RatingsSummaryResponse>({
