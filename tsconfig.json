@@ -2,7 +2,7 @@
   // TODO: fix
   "compilerOptions": {
     "target": "es6",
-    "types": ["node"],
+    "types": ["vitest/globals", "node"],
     "lib": [
       "dom",
       "dom.iterable",

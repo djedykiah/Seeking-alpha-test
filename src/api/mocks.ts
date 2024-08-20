@@ -30,7 +30,6 @@ export const fg3: FactorGradesResponse = {
 };
 
 export const fg6: FactorGradesResponse = {
-  // @ts-ignore
   data: [
     ['Key1', 'С'],
     ['Key2', 'С'],
